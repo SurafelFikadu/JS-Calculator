@@ -14,36 +14,33 @@ function App() {
     if (symbol === "clear") {
       setAnswer("");
       setExpression("0");
-    } else if (isOperator(symbol)) {
+    } 
+    
+    else if (isOperator(symbol)) {
       setExpression(et + " " + symbol + " ");
-    } else if (symbol === "=") {
+    } 
+    
+    else if (symbol === "=") {
       calculate();
-    } else if (symbol === "0") {
-      if (expression.charAt(0) !== "0") {
-        setExpression(expression + symbol);
-      }
-    } else if (symbol === ".") {
-      // split by operators and get last number
+    } 
+    
+    else if (symbol === ".") {
       const lastNumber = expression.split(/[-+/*]/g).pop();
-      if (!lastNumber) return;
-      console.log("lastNumber :>> ", lastNumber);
-      // if last number already has a decimal, don't add another
       if (lastNumber?.includes(".")) return;
       setExpression(expression + symbol);
-    } else {
-      if (expression.charAt(0) === "0") {
-        setExpression(expression.slice(1) + symbol);
-      } else {
-        setExpression(expression + symbol);
-      }
+    } 
+    
+    else if (et.charAt(0) === "0") {
+      setExpression((et.slice(1) + " " + symbol))
+    } 
+    else {
+      setExpression(expression + symbol);
     }
   };
 
   const calculate = () => {
-    // if last char is an operator, do nothing
-    if (isOperator(et.charAt(et.length - 1))) return;
-    // clean the expression so that two operators in a row uses the last operator
-    // 5 * - + 5 = 10 0
+    if (isOperator(et.charAt(et.length - 1)) || et.charAt(et.length - 1) == ".") 
+      return setExpression("sign error")
     const parts = et.split(" ");
     const newParts = [];
 
@@ -74,7 +71,6 @@ function App() {
   return (
     <>
       <div className="container">
-        <h1>Calculator by Surafel</h1>
         <div id="calculator">
           <div id="display" style={{ textAlign: "right" }}>
             <div id="answer">{answer}</div>
@@ -91,7 +87,7 @@ function App() {
             onClick={() => buttonPress("/")}
             className="light-gray"
           >
-            /
+            ÷
           </button>
           <button
             id="seven"

@@ -8,3 +8,7 @@
   background-color: #242424;
 }
 
+body {
+  background: linear-gradient(to right, var(--light-green), var(--light-green));
+  z-index: -5;
+}
